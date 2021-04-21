@@ -1,0 +1,14 @@
+[
+  {
+    "name": "PlayerAttributes",
+    "sheetType": "Global",
+    "schema": {
+      "Gravity": [
+        "FLOAT"
+      ],
+      "NormalSpeed": [
+        "FLOAT"
+      ]
+    }
+  }
+]
