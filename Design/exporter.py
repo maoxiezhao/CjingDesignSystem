@@ -3,12 +3,12 @@ import platform
 import traceback
 import sys
 
-export_script = '..\..\Tools\excelExporter\exporter.py'    
-generator_script = '..\..\Tools\jsonToCSharp\generator.py'
-python_path = '..\..\Tools\py39\python.exe ' if platform.system() == 'Windows' else 'python '
+export_script = '..\Tools\excelExporter\exporter.py'    
+generator_script = '..\Tools\jsonToCSharp\generator.py'
+python_path = '..\Tools\py39\python.exe ' if platform.system() == 'Windows' else 'python '
 export_folder = 'Exported'
 schema_path = 'Exported\Schemas.json'
-code_generate_path = '..\..\Scripts\Generated'
+code_generate_path = '..\Scripts\Generated'
 
 def generate_code(schema, outfolder):
     cmd = r' -i ' + schema
