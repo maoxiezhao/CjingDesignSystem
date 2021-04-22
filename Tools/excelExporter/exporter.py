@@ -43,6 +43,12 @@ class Record:
         self.schema_obj  = schema_obj
         self.sheet_type  = sheet_type
 
+def print_warning(string):
+    print('\033[31m' + string + '\033[0m')
+
+def print_info(string):
+    print('\033[32m' + string + '\033[0m')
+
 def fillvalue(parent, name, value):
     if isinstance(parent, list):
         parent.append(value) 
@@ -255,7 +261,7 @@ def write_files(context):
             with codecs.open(r.export_path, 'w', 'utf-8') as f:
                 f.write(jsonstr)
 
-            print('Write export file %s from %s in %s successfully' % (r.path, r.sheet.name, r.export_path))
+            print_info('Write export file %s from %s in %s successfully' % (r.path, r.sheet.name, r.export_path))
 
     # 统一写入schema文件
     schemas = []
@@ -271,7 +277,7 @@ def write_files(context):
         with codecs.open(context.code_generate_path, 'w', 'utf-8') as f:
             f.write(jsonstr)
 
-        print('Write schema file %s successfully' % (context.code_generate_path))
+        print_info('Write schema file %s successfully' % (context.code_generate_path))
 
 def export_excel(context, path):
     data = xlrd.open_workbook(path)
@@ -298,9 +304,9 @@ def export_excel(context, path):
             export_path = os.path.join(dir_path, export_name + '.json')
 
             # 检查当前表名是否已经导出
-            r = next((r for r in context.records if r.root == root), False)
+            r = next((r for r in context.records if r.export_name == export_name), False)
             if r:
-                raise ValueError('%s in %s is already defined in %s' % (root, path, r.path))
+                raise ValueError('%s in %s is already defined in %s' % (export_name, path, r.export_path))
             
             # 仅当原数据表修改后才去分析表
             if not context.force_update and not isoutofdate(path, export_path):
@@ -362,4 +368,5 @@ def main():
     export_excels(context);
     
 if __name__ == '__main__':
+    os.system('')
     main();

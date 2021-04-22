@@ -2,13 +2,16 @@ import os
 import platform
 import traceback
 import sys
+import os
+import platform
+import glob
 
-export_script = '..\Tools\excelExporter\exporter.py'    
-generator_script = '..\Tools\jsonToCSharp\generator.py'
-python_path = '..\Tools\py39\python.exe ' if platform.system() == 'Windows' else 'python '
+export_script = '..\..\Tools\excelExporter\exporter.py'    
+generator_script = '..\..\Tools\jsonToCSharp\generator.py'
+python_path = '..\..\Tools\py39\python.exe ' if platform.system() == 'Windows' else 'python '
 export_folder = 'Exported'
 schema_path = 'Exported\Schemas.json'
-code_generate_path = '..\Scripts\Generated'
+code_generate_path = '..\..\Scripts\Generated'
 
 def generate_code(schema, outfolder):
     cmd = r' -i ' + schema
@@ -31,16 +34,25 @@ def export(filelist):
         raise ValueError('Export excel fail')
         input()
 
+def scan_directory():
+    filelist = sorted(glob.glob("**/*.xls", recursive=True), reverse=False)
+    for item in filelist:
+        print(item)
+    return filelist
+
 def main():
     if len(sys.argv) <= 1:
         return
     filelist = []
-    for i in range(1, len(sys.argv)):
-        filelist.append(sys.argv[i])
-        print(sys.argv[i])
+    if sys.argv[1] == '-a':
+        filelist = scan_directory()
+    else:
+        for i in range(1, len(sys.argv)):
+            filelist.append(sys.argv[i])
 
-    export(filelist)
-    generate_code(schema_path, code_generate_path)
+    if len(filelist) > 0:
+        export(filelist)
+        generate_code(schema_path, code_generate_path)
 
 if __name__ == '__main__':
     main()

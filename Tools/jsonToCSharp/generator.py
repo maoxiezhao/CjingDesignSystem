@@ -37,11 +37,12 @@ class UnitMemberField:
         self.m_type = type_
 
 class UnitRecord:
-    class_name = ""
-    export_name = ""
-    schema_obj = None
-    member_fields = []
-    sheet_type = ""
+    def __init__(self):
+        self.class_name = ""
+        self.export_name = ""
+        self.schema_obj = None
+        self.member_fields = []
+        self.sheet_type = ""
 
     def parse_from_json(self, jsn):
         sheet_type = jsn['sheetType'] 
@@ -115,7 +116,13 @@ class UnitRecord:
         output_file.writelines(lines)
         output_file.close()
 
-        print('Write generated file %s successfully' % (dst_path))
+        print_info('Write generated file %s successfully' % (dst_path))
+
+def print_warning(string):
+    print('\033[31m' + string + '\033[0m')
+
+def print_info(string):
+    print('\033[32m' + string + '\033[0m')
 
 def display_help():
     print(
@@ -172,7 +179,7 @@ def write_static_global_tables(records):
     output_file.writelines(lines)
     output_file.close()
 
-    print('Write static generated file %s successfully' % (dst_path))
+    print_info('Write static generated file %s successfully' % (dst_path))
         
 
 def write_static_design_tables(records):
@@ -213,7 +220,7 @@ def write_static_design_tables(records):
     output_file.writelines(lines)
     output_file.close()
 
-    print('Write static generated file %s successfully' % (dst_path))
+    print_info('Write static generated file %s successfully' % (dst_path))
 
 def write_static_tables():
     global_records = []
