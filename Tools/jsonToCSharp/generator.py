@@ -13,7 +13,9 @@ TypeMapping = {
     "INT"    : "int",
     "STRING" : "string",
     "BOOL"   : "bool",
-    "FLOAT"  : "float"
+    "FLOAT"  : "float",
+    "STRING_ID" : "StringID",
+    "RES_PATH" : "ResourcePath"
 }
 
 SheetTypeExportPath = {
@@ -116,7 +118,7 @@ class UnitRecord:
         output_file.writelines(lines)
         output_file.close()
 
-        print_info('Write generated file %s successfully' % (dst_path))
+        print_info('Generated file %s successfully' % (dst_path))
 
 def print_warning(string):
     print('\033[31m' + string + '\033[0m')
@@ -174,7 +176,7 @@ def write_static_global_tables(records):
     if not os.path.isdir(parent_dir):
         os.makedirs(parent_dir)
 
-    dst_path = os.path.join(parent_dir, "staticGlobalTables.cs")
+    dst_path = os.path.join(parent_dir, "GlobalTables.cs")
     output_file = open(dst_path, "w", encoding='utf-8')
     output_file.writelines(lines)
     output_file.close()
@@ -215,7 +217,7 @@ def write_static_design_tables(records):
     if not os.path.isdir(parent_dir):
         os.makedirs(parent_dir)
 
-    dst_path = os.path.join(parent_dir, "staticDesignTables.cs")
+    dst_path = os.path.join(parent_dir, "DesignTables.cs")
     output_file = open(dst_path, "w", encoding='utf-8')
     output_file.writelines(lines)
     output_file.close()

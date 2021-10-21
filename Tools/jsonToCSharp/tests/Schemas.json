@@ -1,5 +1,26 @@
 [
   {
+    "name": "Test",
+    "sheetType": "Design",
+    "schema": {
+      "Id": [
+        "INT"
+      ],
+      "Name": [
+        "STRING"
+      ],
+      "MountId": [
+        "INT"
+      ],
+      "Sex": [
+        "BOOL"
+      ],
+      "Height": [
+        "FLOAT"
+      ]
+    }
+  },
+  {
     "name": "PlayerAttributes",
     "sheetType": "Global",
     "schema": {
@@ -7,6 +28,42 @@
         "FLOAT"
       ],
       "NormalSpeed": [
+        "FLOAT"
+      ],
+      "DashSpeed": [
+        "FLOAT"
+      ],
+      "JumpSpeed": [
+        "FLOAT"
+      ],
+      "EnduranceCost": [
+        "FLOAT"
+      ],
+      "EnduranceRecover": [
+        "FLOAT"
+      ],
+      "ShootAimingTimeMax": [
+        "FLOAT"
+      ],
+      "HpMax": [
+        "INT"
+      ],
+      "EnduranceMax": [
+        "INT"
+      ],
+      "Damage": [
+        "INT"
+      ],
+      "AttackTime": [
+        "FLOAT"
+      ],
+      "AttackWaitTime": [
+        "FLOAT"
+      ],
+      "AttackCooldownTime": [
+        "FLOAT"
+      ],
+      "ComaTime": [
         "FLOAT"
       ]
     }

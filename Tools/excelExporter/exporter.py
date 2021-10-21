@@ -17,7 +17,7 @@ class Context:
     force_update = False
     implicit_write = False
     code_generate_path = None
-    support_types = ('INT', 'FLOAT', 'STRING', 'BOOL')  # 当前支持的表格格式
+    support_types = ('INT', 'FLOAT', 'STRING', 'BOOL', 'STRING_ID', 'RES_PATH')  # 当前支持的表格格式
 
 class SheetType(Enum):
     UnknownTable = 0
@@ -47,7 +47,8 @@ def print_warning(string):
     print('\033[31m' + string + '\033[0m')
 
 def print_info(string):
-    print('\033[32m' + string + '\033[0m')
+    pass
+    ## print('\033[32m' + string + '\033[0m') 
 
 def fillvalue(parent, name, value):
     if isinstance(parent, list):
@@ -71,9 +72,9 @@ def display_help():
     Arguments
         -i      : input_list excel files, use ',' to separate
         -o      : out folder
-        -c      : code generated path (dose not generate if is null)
         -h      : print this help message and exit
         -f      ：force update exported ignoring time diff
+        -c      : code generated path (dose not generate if is null)
         -w      : implicit write dir according by sheetType
     '''
     );
@@ -106,7 +107,7 @@ def parse_list_value(parent, type_, name, value, is_scheme):
         for v in values:
             parse_base_value(list_, typename, name, v, is_scheme)
 
-    fillvalue(parent, name + "s", list_)
+    fillvalue(parent, name, list_)
 
 def parse_base_value(parent, type_, name, value, is_scheme):
     typename = parse_type(type_)
@@ -132,6 +133,10 @@ def parse_base_value(parent, type_, name, value, is_scheme):
                 value = True
             else:    
                 raise ValueError('%s is a invalid bool value' % value) 
+    elif typename == "STRING_ID":
+        value = str(value).replace('\0', ',')    
+    elif typename == "RES_PATH":
+        value = str(value).replace('\0', ',')    
 
     fillvalue(parent, name, value)
 
@@ -197,8 +202,10 @@ def parse_design_table(path, sheet):
                     name_ = header_infos[col_index][1]
                     value_ = str(row[col_index])
 
-                    if type_ and name_ and value_:
-                        parse_value(item, type_, name_, value_, False)  
+                    if row[col_index] == None and value_ == "":
+                        raise ValueError('Has a null value.') 
+                    
+                    parse_value(item, type_, name_, value_, False)  
 
                 if item:
                     items.append(item)

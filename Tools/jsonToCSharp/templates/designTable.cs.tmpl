@@ -21,14 +21,14 @@ ${member_fields}
 ${method_fields}
         }
         
-        public static ${tablename}[] Load(Stream stream) 
+        public static ${tablename}[] Load(Godot.File file) 
         {
-            return Load<${tablename}>(stream);
+            return Load<${tablename}>(file);
         }
 
-        public static T[] Load<T>(Stream stream) where T : ${tablename}, new()
+        public static T[] Load<T>(Godot.File file) where T : ${tablename}, new()
         {
-            return TableGeneratorUtility.Load<T>(stream, "");
+            return TableGeneratorUtility.Load<T>(file, "");
         }
     }
 
