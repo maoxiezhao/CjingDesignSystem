@@ -1,5 +1,5 @@
 # CjingDesignSystem
-一个简易高校的策划表工具
+一个简易高效的策划表工具
 ####
 基于Python实现读取excel表，并输出到Json文件中
 同时支持将Json文件自动生成为C#的表类和读取代码
